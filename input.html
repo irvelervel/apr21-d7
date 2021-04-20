@@ -37,7 +37,7 @@
     <div id="inputs">
       <div>
         <label for="name">Name</label>
-        <input id="name" type="text" />
+        <input id="name" type="text" onkeydown="consoleLogEvent(event)" />
       </div>
       <div>
         <label for="surname">Surname</label>
@@ -49,44 +49,83 @@
       </div>
     </div>
 
-    <button onclick="grabUserData(event)">CLICK ME!</button>
+    <!-- <button onclick="grabUserData(event)">CLICK ME!</button> -->
 
     <div id="success-message" style="display: none">
       <h3>DATA HAS BEEN SAVED!</h3>
     </div>
     <script>
+      const consoleLogEvent = function (e) {
+        console.log(e);
+      };
+
       const grabUserData = function (event) {
         console.log(event);
-        // if I don't have any id to work with...
+        // if I don't have any id to work with, I could have selected the inputs in this way:
         // const allTheInputs = document.getElementsByTagName('input')
         // allTheInputs[0]
         // allTheInputs[1]
         // allTheInputs[2]
 
+        // let's select the name input field
         let nameInput = document.getElementById("name");
-        // let nameInput = document.querySelector('#name')
+        // let read the current value out of it
         let nameValue = nameInput.value;
 
+        // let's select the surname input field
         let surnameInput = document.getElementById("surname");
+        // let read the current value out of it
         let surnameValue = surnameInput.value;
 
+        // let's select the email input field
         let emailInput = document.getElementById("email");
+        // let read the current value out of it
         let emailValue = emailInput.value;
 
+        // now I'm creating a user out of those values
         let user = {
           name: nameValue,
           surname: surnameValue,
           email: emailValue,
         };
 
+        // here I change the display property of the success message
+        // initially, in HTML, it is set to "display: none" and so it's invisible
         document.getElementById("success-message").style.display = "block";
 
-        // LET'S EMPTY THE FIELDS
+        // LET'S EMPTY THE FIELDS, assigning empty strings as the values of the inputs
         nameInput.value = "";
         surnameInput.value = "";
         emailInput.value = "";
 
         console.log(user);
+      };
+
+      const createButton = function () {
+        // 1) create an empty button tag
+        // 2) assign any property and any event listener
+        // 3) find the parent
+        // 4) append it to the parent
+
+        // 1)
+        let newButton = document.createElement("button");
+        // newButton is <button></button>
+        // 2)
+        newButton.innerText = "CLICK ME!";
+        newButton.addEventListener("click", grabUserData);
+        // newButton.onclick = grabUserData
+
+        // 3)
+        let parent = document.querySelector("body");
+        // let parent = document.getElementsByTagName('body')[0]
+
+        // 4)
+        parent.appendChild(newButton);
+      };
+
+      window.onload = function () {
+        console.log("page has loaded, button has been created!");
+        createButton();
       };
     </script>
   </body>

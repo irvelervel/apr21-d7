@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Accessing Elements in the DOM</title>
+
+    <style>
+      html {
+        font-family: sans-serif;
+        color: #333;
+      }
+      body {
+        max-width: 350px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+      #inputs {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+      #button {
+        text-align: center;
+      }
+      div,
+      article {
+        padding: 10px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- <h1 onclick="grabUserData()">CLICK ME</h1> -->
+    <div id="inputs">
+      <div>
+        <label for="name">Name</label>
+        <input id="name" type="text" />
+      </div>
+      <div>
+        <label for="surname">Surname</label>
+        <input id="surname" type="text" />
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" type="email" />
+      </div>
+    </div>
+
+    <button onclick="grabUserData(event)">CLICK ME!</button>
+
+    <div id="success-message" style="display: none">
+      <h3>DATA HAS BEEN SAVED!</h3>
+    </div>
+    <script>
+      const grabUserData = function (event) {
+        console.log(event);
+        // if I don't have any id to work with...
+        // const allTheInputs = document.getElementsByTagName('input')
+        // allTheInputs[0]
+        // allTheInputs[1]
+        // allTheInputs[2]
+
+        let nameInput = document.getElementById("name");
+        // let nameInput = document.querySelector('#name')
+        let nameValue = nameInput.value;
+
+        let surnameInput = document.getElementById("surname");
+        let surnameValue = surnameInput.value;
+
+        let emailInput = document.getElementById("email");
+        let emailValue = emailInput.value;
+
+        let user = {
+          name: nameValue,
+          surname: surnameValue,
+          email: emailValue,
+        };
+
+        document.getElementById("success-message").style.display = "block";
+
+        // LET'S EMPTY THE FIELDS
+        nameInput.value = "";
+        surnameInput.value = "";
+        emailInput.value = "";
+
+        console.log(user);
+      };
+    </script>
+  </body>
+</html>
